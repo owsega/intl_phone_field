@@ -148,33 +148,33 @@ class IntlPhoneField extends StatefulWidget {
 
   IntlPhoneField(
       {this.initialCountryCode,
-      this.obscureText = false,
-      this.textAlign = TextAlign.left,
-      this.onTap,
-      this.readOnly = false,
-      this.initialValue,
-      this.keyboardType = TextInputType.number,
-      this.autoValidate = true,
-      this.controller,
-      this.focusNode,
-      this.decoration,
-      this.style,
-      this.onSubmitted,
-      this.validator,
-      this.onChanged,
-      this.countries,
-      this.onCountryChanged,
-      this.onSaved,
-      this.showDropdownIcon = true,
-      this.dropdownDecoration = const BoxDecoration(),
-      this.inputFormatters,
-      this.enabled = true,
-      this.keyboardAppearance = Brightness.light,
-      this.searchText = 'Search by Country Name',
-      this.countryCodeTextColor,
-      this.dropDownArrowColor,
+        this.obscureText = false,
+        this.textAlign = TextAlign.left,
+        this.onTap,
+        this.readOnly = false,
+        this.initialValue,
+        this.keyboardType = TextInputType.number,
+        this.autoValidate = true,
+        this.controller,
+        this.focusNode,
+        this.decoration,
+        this.style,
+        this.onSubmitted,
+        this.validator,
+        this.onChanged,
+        this.countries,
+        this.onCountryChanged,
+        this.onSaved,
+        this.showDropdownIcon = true,
+        this.dropdownDecoration = const BoxDecoration(),
+        this.inputFormatters,
+        this.enabled = true,
+        this.keyboardAppearance = Brightness.light,
+        this.searchText = 'Search by Country Name',
+        this.countryCodeTextColor,
+        this.dropDownArrowColor,
       this.autofocus = false,
-      this.textInputAction});
+        this.textInputAction});
 
   @override
   _IntlPhoneFieldState createState() => _IntlPhoneFieldState();
@@ -193,17 +193,17 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
     _countryList = widget.countries == null
         ? countries
         : countries
-            .where((country) => widget.countries!.contains(country['code']))
-            .toList();
+        .where((country) => widget.countries!.contains(country['code']))
+        .toList();
     filteredCountries = _countryList;
     _selectedCountry = _countryList.firstWhere(
-        (item) => item['code'] == (widget.initialCountryCode ?? 'US'),
+            (item) => item['code'] == (widget.initialCountryCode ?? 'US'),
         orElse: () => _countryList.first);
 
     validator = widget.autoValidate
         ? ((value) => value != null && value.length != 10
-            ? 'Invalid Mobile Number'
-            : null)
+        ? 'Invalid Mobile Number'
+        : null)
         : widget.validator;
   }
 
@@ -227,8 +227,8 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                     setState(() {
                       filteredCountries = _countryList
                           .where((country) => country['name']!
-                              .toLowerCase()
-                              .contains(value.toLowerCase()))
+                          .toLowerCase()
+                          .contains(value.toLowerCase()))
                           .toList();
                     });
                   },
@@ -347,36 +347,45 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
       child: InkWell(
         borderRadius: widget.dropdownDecoration.borderRadius as BorderRadius?,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              if (widget.showDropdownIcon) ...[
-                Icon(
-                  Icons.arrow_drop_down,
-                  color: widget.dropDownArrowColor,
+              SizedBox(width: 8),
+              Container(
+                width: 17,
+                height: 17,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/flags/${_selectedCountry['code']!.toLowerCase()}.png',
+                      package: 'intl_phone_field',
+                    ),
+                    fit: BoxFit.fill,
+                  ),
+                  shape: BoxShape.circle,
                 ),
-                SizedBox(width: 4)
-              ],
-              Image.asset(
-                'assets/flags/${_selectedCountry['code']!.toLowerCase()}.png',
-                package: 'intl_phone_field',
-                width: 32,
               ),
               SizedBox(width: 8),
               FittedBox(
                 child: Text(
                   '+${_selectedCountry['dial_code']}',
                   style: TextStyle(
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.normal,
                       color: widget.countryCodeTextColor),
                 ),
               ),
-              SizedBox(width: 8),
+              SizedBox(width: 2),
+              if (widget.showDropdownIcon) ...[
+                Icon(
+                  Icons.keyboard_arrow_down,
+                  color: widget.dropDownArrowColor,
+                ),
+                SizedBox(width: 4)
+              ],
             ],
           ),
         ),
-        onTap: _changeCountry,
       ),
     );
   }
