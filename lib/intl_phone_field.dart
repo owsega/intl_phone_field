@@ -148,33 +148,33 @@ class IntlPhoneField extends StatefulWidget {
 
   IntlPhoneField(
       {this.initialCountryCode,
-        this.obscureText = false,
-        this.textAlign = TextAlign.left,
-        this.onTap,
-        this.readOnly = false,
-        this.initialValue,
-        this.keyboardType = TextInputType.number,
-        this.autoValidate = true,
-        this.controller,
-        this.focusNode,
-        this.decoration,
-        this.style,
-        this.onSubmitted,
-        this.validator,
-        this.onChanged,
-        this.countries,
-        this.onCountryChanged,
-        this.onSaved,
-        this.showDropdownIcon = true,
-        this.dropdownDecoration = const BoxDecoration(),
-        this.inputFormatters,
-        this.enabled = true,
-        this.keyboardAppearance = Brightness.light,
-        this.searchText = 'Search by Country Name',
-        this.countryCodeTextColor,
-        this.dropDownArrowColor,
+      this.obscureText = false,
+      this.textAlign = TextAlign.left,
+      this.onTap,
+      this.readOnly = false,
+      this.initialValue,
+      this.keyboardType = TextInputType.number,
+      this.autoValidate = true,
+      this.controller,
+      this.focusNode,
+      this.decoration,
+      this.style,
+      this.onSubmitted,
+      this.validator,
+      this.onChanged,
+      this.countries,
+      this.onCountryChanged,
+      this.onSaved,
+      this.showDropdownIcon = true,
+      this.dropdownDecoration = const BoxDecoration(),
+      this.inputFormatters,
+      this.enabled = true,
+      this.keyboardAppearance = Brightness.light,
+      this.searchText = 'Search by Country Name',
+      this.countryCodeTextColor,
+      this.dropDownArrowColor,
       this.autofocus = false,
-        this.textInputAction});
+      this.textInputAction});
 
   @override
   _IntlPhoneFieldState createState() => _IntlPhoneFieldState();
@@ -193,17 +193,17 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
     _countryList = widget.countries == null
         ? countries
         : countries
-        .where((country) => widget.countries!.contains(country['code']))
-        .toList();
+            .where((country) => widget.countries!.contains(country['code']))
+            .toList();
     filteredCountries = _countryList;
     _selectedCountry = _countryList.firstWhere(
-            (item) => item['code'] == (widget.initialCountryCode ?? 'US'),
+        (item) => item['code'] == (widget.initialCountryCode ?? 'US'),
         orElse: () => _countryList.first);
 
     validator = widget.autoValidate
         ? ((value) => value != null && value.length != 10
-        ? 'Invalid Mobile Number'
-        : null)
+            ? 'Invalid Mobile Number'
+            : null)
         : widget.validator;
   }
 
@@ -227,8 +227,8 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                     setState(() {
                       filteredCountries = _countryList
                           .where((country) => country['name']!
-                          .toLowerCase()
-                          .contains(value.toLowerCase()))
+                              .toLowerCase()
+                              .contains(value.toLowerCase()))
                           .toList();
                     });
                   },
@@ -386,6 +386,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
             ],
           ),
         ),
+        onTap: _changeCountry,
       ),
     );
   }
